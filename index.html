@@ -343,31 +343,48 @@
                 }
                 const database = firebase.database();
 
-                // 1. D-Day 카운트다운 기능 (2026년 11월 15일 20:00 기준)
-                const targetDate = new Date("2026-11-15T20:00:00").getTime();
+                // 1. Party Starts In 카운트다운
+                // 2026년 11월 15일 오후 8시 (한국 시간)
+                const targetDate = new Date("2026-11-15T20:00:00+09:00").getTime();
 
                 function updateCountdown() {
-                    const now = new Date().getTime();
+                    const now = Date.now();
                     const distance = targetDate - now;
 
-                    if (distance < 0) {
-                        document.getElementById("d-day-container").innerHTML = '<span class="text-accent font-bold">1주년 이벤트가 시작되었습니다!</span>';
+                    const container = document.getElementById("d-day-container");
+
+                    if (distance <= 0) {
+                        container.innerHTML = `
+                            <div class="text-sky-200 font-bold text-sm">
+                                🎉 PARTY HAS STARTED! 🎉
+                            </div>
+                        `;
                         return;
                     }
 
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+                    const seconds = Math.floor((distance / 1000) % 60);
 
-                    document.getElementById("days").innerText = String(days).padStart(2, '0');
-                    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-                    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-                    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+                    document.getElementById("days").textContent =
+                        String(days).padStart(2, "0");
+
+                    document.getElementById("hours").textContent =
+                        String(hours).padStart(2, "0");
+
+                    document.getElementById("minutes").textContent =
+                        String(minutes).padStart(2, "0");
+
+                    document.getElementById("seconds").textContent =
+                        String(seconds).padStart(2, "0");
                 }
 
-                setInterval(updateCountdown, 1000);
+                // 페이지 접속 즉시 실행
                 updateCountdown();
+
+                // 1초마다 갱신
+                setInterval(updateCountdown, 1000);
 
                 function showToast(message) {
                     const toast = document.getElementById("toast");
