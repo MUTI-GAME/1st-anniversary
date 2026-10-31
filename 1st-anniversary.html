@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Anniversary | 모찌 & 뮤티</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts & Retro Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kitschPink: '#87CEEB', // Sky Blue accent
+                        kitschPurple: '#64748B', // Slate Gray
+                        kitschYellow: '#E2E8F0', // Soft Light Gray
+                        kitschMint: '#BAE6FD', // Light Sky Blue
+                        kitschDark: '#1E293B' // Deep Charcoal
+                    },
+                    fontFamily: {
+                        kitsch: ['NeoDunggeunmo', 'Fredoka', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #94A3B8;
+            background-image: radial-gradient(#E2E8F0 2px, transparent 2px);
+            background-size: 24px 24px;
+            font-family: 'NeoDunggeunmo', 'Fredoka', sans-serif;
+            word-break: keep-all;
+        }
+
+        .invitation-card {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #F8FAFC;
+            box-shadow: 8px 8px 0px #1E293B;
+            border: 4px solid #1E293B;
+        }
+
+        .pixel-box {
+            border: 3px solid #1E293B;
+            box-shadow: 4px 4px 0px #1E293B;
+        }
+
+        .pixel-button {
+            border: 3px solid #1E293B;
+            box-shadow: 3px 3px 0px #1E293B;
+            transition: all 0.1s ease;
+        }
+
+            .pixel-button:active {
+                transform: translate(2px, 2px);
+                box-shadow: 1px 1px 0px #1E293B;
+            }
+
+        .checker-bg {
+            background-size: 20px 20px;
+            background-image: linear-gradient(45deg, #E2E8F0 25%, transparent 25%), linear-gradient(-45deg, #E2E8F0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #E2E8F0 75%), linear-gradient(-45deg, transparent 75%, #E2E8F0 75%);
+        }
+
+        /* Toast notification */
+        #toast {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+            #toast.show {
+                visibility: visible;
+                opacity: 1;
+            }
+    </style>
+</head>
+<body class="antialiased text-kitschDark p-0 sm:p-4">
+
+    <!-- 모바일 컨테이너 (최대 너비 480px) -->
+    <div class="invitation-card min-h-screen relative overflow-hidden pb-16 my-0 sm:my-4 rounded-3xl">
+
+        <!-- 1. 커버 섹션 -->
+        <section class="relative text-center pt-8 pb-12 px-6 border-b-4 border-kitschDark checker-bg">
+            <!-- 키치 뱃지 -->
+            <div class="inline-block bg-kitschMint text-kitschDark font-bold px-4 py-1.5 rounded-full border-2 border-kitschDark shadow-[3px_3px_0px_#1E293B] text-xs uppercase tracking-wider mb-4 animate-bounce">
+                🩵 1ST ANNIVERSARY PARTY 🩵
+            </div>
+
+            <h1 class="text-4xl font-extrabold text-kitschDark mb-2 leading-tight tracking-wide drop-shadow-[2px_2px_0_#FFF]">
+                <span class="text-slate-500">모찌</span> <span class="text-sky-400">★</span> <span class="text-sky-500">뮤티</span>
+            </h1>
+            <p class="text-xs font-bold text-slate-600 mb-4 tracking-widest">MOZZI & MUTI</p>
+
+            <!-- 메인 커버 이미지 (불꽃축제.PNG) -->
+            <div class="relative w-full h-[380px] rounded-2xl overflow-hidden my-4 mx-auto border-4 border-kitschDark shadow-[6px_6px_0px_#1E293B] bg-slate-200 group">
+                <img src="불꽃축제.PNG"
+                     alt="메인 불꽃축제 사진"
+                     class="w-full h-full object-cover"
+                     onerror="this.src='https://placehold.co/480x600/bae6fd/1e293b?text=MOZZI+x+MUTI'">
+
+                <!-- 스티커 오버레이 (라벨 위치 조정) -->
+                <!-- 오른쪽 위: 회색 머리 남자 = 모찌 -->
+                <div class="absolute top-3 right-3 bg-slate-300 text-kitschDark text-xs px-3 py-1 font-bold rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B] rotate-6">
+                    🩶 MOZZI
+                </div>
+                <!-- 왼쪽 아래: 파란 머리 여자 = 뮤티 -->
+                <div class="absolute bottom-3 left-3 bg-sky-300 text-kitschDark text-xs px-3 py-1 font-bold rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B] -rotate-6">
+                    🩵 MUTI
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white p-4 rounded-xl border-3 border-kitschDark pixel-box inline-block w-full">
+                <p class="text-base font-bold text-kitschDark">2026. 11. 15 (SUN)</p>
+                <p class="text-xs text-sky-600 font-bold mt-1">PM 8:00 START!</p>
+            </div>
+        </section>
+
+        <!-- 2. 초대의 글 섹션 -->
+        <section class="py-12 px-6 text-center border-b-4 border-kitschDark bg-slate-200 relative">
+            <!-- 장식 스티커 -->
+            <span class="absolute top-3 left-4 text-2xl">⚡</span>
+            <span class="absolute bottom-3 right-4 text-2xl">☁️</span>
+
+            <div class="inline-block bg-sky-300 text-kitschDark text-xs px-3 py-1 font-bold rounded-md border-2 border-kitschDark mb-3">
+                LET'S CELEBRATE!
+            </div>
+            <h2 class="text-2xl font-bold text-kitschDark mb-6">1주년 축하 파티에 오세요!</h2>
+
+            <div class="bg-white p-6 rounded-2xl border-3 border-kitschDark pixel-box text-sm text-kitschDark leading-loose font-medium space-y-3">
+                <p>소중한 순간들을 차곡차곡 쌓아온<br><span class="bg-slate-300 text-kitschDark px-2 py-0.5 rounded border border-kitschDark font-bold">🩶 모찌(MOZZI)</span>와 <span class="bg-sky-200 text-kitschDark px-2 py-0.5 rounded border border-kitschDark font-bold">🩵 뮤티(MUTI)</span>가 1주년을 맞이했습니다! 🥳</p>
+                <p>저희의 소중한 첫 해를 기념하며<br>신나고 재밌는 파티를 준비했어요!</p>
+                <p class="font-bold text-sky-600 text-base pt-2">맛있는 음식과 게임이 기다리고 있으니<br>꼭 오셔서 자리를 빛내주세요! ✨</p>
+            </div>
+        </section>
+
+        <!-- 3. 예식 일시 & D-Day 카운트다운 -->
+        <section class="py-12 px-6 text-center border-b-4 border-kitschDark bg-white">
+            <div class="inline-block bg-slate-200 text-kitschDark text-xs px-3 py-1 font-bold rounded-md border-2 border-kitschDark mb-2">
+                D-DAY COUNTDOWN
+            </div>
+            <h2 class="text-2xl font-bold text-kitschDark mb-2">2026. 11. 15</h2>
+            <p class="text-xs font-bold text-sky-600 mb-6">SUNDAY PM 8:00</p>
+
+            <!-- 달력 UI -->
+            <div class="max-w-xs mx-auto bg-sky-50 p-5 rounded-2xl border-3 border-kitschDark pixel-box mb-8">
+                <div class="grid grid-cols-7 gap-1 text-xs mb-3 font-bold text-kitschDark">
+                    <span class="text-red-400">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-xs font-bold text-kitschDark">
+                    <span class="text-red-400">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    <span class="text-red-400">8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                    <span class="bg-sky-300 text-kitschDark font-bold rounded-lg w-7 h-7 flex items-center justify-center mx-auto border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B] animate-pulse">15</span>
+                    <span class="text-red-400">16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+                    <span class="text-red-400">23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
+                    <span class="text-red-400">30</span>
+                </div>
+            </div>
+
+            <!-- D-Day 타이머 -->
+            <div class="bg-slate-700 text-white rounded-2xl p-5 max-w-xs mx-auto text-center border-3 border-kitschDark pixel-box">
+                <p class="text-xs font-bold mb-3 text-sky-200 uppercase tracking-wider">⚡ Party Starts In ⚡</p>
+                <div id="d-day-container" class="flex justify-center gap-3 text-center">
+                    <div class="bg-white text-kitschDark px-2.5 py-1.5 rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                        <span id="days" class="text-xl font-extrabold block">00</span>
+                        <span class="text-[9px] font-bold block text-slate-500">DAYS</span>
+                    </div>
+                    <span class="text-xl font-extrabold text-sky-300 self-center">:</span>
+                    <div class="bg-white text-kitschDark px-2.5 py-1.5 rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                        <span id="hours" class="text-xl font-extrabold block">00</span>
+                        <span class="text-[9px] font-bold block text-slate-500">HOURS</span>
+                    </div>
+                    <span class="text-xl font-extrabold text-sky-300 self-center">:</span>
+                    <div class="bg-white text-kitschDark px-2.5 py-1.5 rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                        <span id="minutes" class="text-xl font-extrabold block">00</span>
+                        <span class="text-[9px] font-bold block text-slate-500">MINS</span>
+                    </div>
+                    <span class="text-xl font-extrabold text-sky-300 self-center">:</span>
+                    <div class="bg-white text-kitschDark px-2.5 py-1.5 rounded-lg border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                        <span id="seconds" class="text-xl font-extrabold block">00</span>
+                        <span class="text-[9px] font-bold block text-slate-500">SECS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 이벤트 일정 섹션 -->
+        <section class="py-12 px-6 border-b-4 border-kitschDark bg-sky-100">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-slate-300 text-kitschDark text-xs px-3 py-1 font-bold rounded-md border-2 border-kitschDark mb-2">
+                    TIMETABLE
+                </div>
+                <h2 class="text-2xl font-bold text-kitschDark">이벤트 일정 안내</h2>
+            </div>
+
+            <div class="max-w-xs mx-auto space-y-4">
+                <!-- 일정 1 -->
+                <div class="flex items-center gap-4 bg-white p-4 rounded-xl border-3 border-kitschDark pixel-box">
+                    <div class="w-12 h-12 rounded-xl bg-sky-200 text-kitschDark border-2 border-kitschDark flex items-center justify-center font-bold text-xs shrink-0 shadow-[2px_2px_0px_#1E293B]">
+                        20:00
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-kitschDark text-sm">🎂 1주년 축하</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">오프닝 & 축하 케이크 커팅식</p>
+                    </div>
+                </div>
+
+                <!-- 일정 2 -->
+                <div class="flex items-center gap-4 bg-white p-4 rounded-xl border-3 border-kitschDark pixel-box">
+                    <div class="w-12 h-12 rounded-xl bg-slate-300 text-kitschDark border-2 border-kitschDark flex items-center justify-center font-bold text-xs shrink-0 shadow-[2px_2px_0px_#1E293B]">
+                        21:00
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-kitschDark text-sm">🙈 숨바꼭질</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">상품이 걸린 한판 승부 게임!</p>
+                    </div>
+                </div>
+
+                <!-- 일정 3 -->
+                <div class="flex items-center gap-4 bg-white p-4 rounded-xl border-3 border-kitschDark pixel-box">
+                    <div class="w-12 h-12 rounded-xl bg-sky-300 text-kitschDark border-2 border-kitschDark flex items-center justify-center font-bold text-xs shrink-0 shadow-[2px_2px_0px_#1E293B]">
+                        22:00
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-kitschDark text-sm">🧩 퀴즈쇼</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">모찌 & 뮤티 TMI 서바이벌 퀴즈</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 갤러리 섹션 (1~6번 이미지 적용) -->
+        <section class="py-12 px-6 border-b-4 border-kitschDark bg-white">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-sky-200 text-kitschDark text-xs px-3 py-1 font-bold rounded-md border-2 border-kitschDark mb-2">
+                    PHOTO GALLERY
+                </div>
+                <h2 class="text-2xl font-bold text-kitschDark">우리의 추억 스냅 📸</h2>
+            </div>
+
+            <!-- 이미지 그리드 (3x2) -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-slate-100">
+                    <img src="1_슈가슈가룬.png" alt="갤러리1 슈가슈가룬" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-sky-100">
+                    <img src="2_바다앉기.png" alt="갤러리2 바다앉기" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-slate-200">
+                    <img src="3_바다경례.PNG" alt="갤러리3 바다경례" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-sky-200">
+                    <img src="4_장난모찌.png" alt="갤러리4 장난모찌" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-slate-100">
+                    <img src="5_청혼.PNG" alt="갤러리5 청혼" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="border-2 border-kitschDark rounded-xl overflow-hidden shadow-[3px_3px_0px_#1E293B] bg-sky-100">
+                    <img src="6_벽치기.jpg" alt="갤러리6 벽치기" class="w-full h-24 object-cover cursor-pointer hover:scale-105 transition" onclick="openModal(this.src)">
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 방명록 섹션 -->
+        <section class="py-12 px-6 bg-slate-200">
+            <div class="text-center mb-6">
+                <div class="inline-block bg-sky-300 text-kitschDark text-xs px-3 py-1 font-bold rounded-md border-2 border-kitschDark mb-2">
+                    GUESTBOOK
+                </div>
+                <h2 class="text-2xl font-bold text-kitschDark">축하 메시지 남기기 💌</h2>
+            </div>
+
+            <!-- 방명록 입력 폼 -->
+            <form id="guestbook-form" onsubmit="addMessage(event)" class="bg-white p-4 rounded-2xl border-3 border-kitschDark pixel-box mb-6 space-y-3">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="guest-name" placeholder="닉네임" required
+                           class="w-full px-3 py-2 text-xs border-2 border-kitschDark rounded-lg focus:outline-none focus:bg-sky-50 font-bold">
+                    <input type="password" id="guest-pw" placeholder="암호" required
+                           class="w-full px-3 py-2 text-xs border-2 border-kitschDark rounded-lg focus:outline-none focus:bg-sky-50 font-bold">
+                </div>
+                <textarea id="guest-msg" placeholder="모찌 & 뮤티에게 축하 한마디를 적어주세요!" rows="3" required
+                          class="w-full px-3 py-2 text-xs border-2 border-kitschDark rounded-lg focus:outline-none focus:bg-sky-50 resize-none font-bold"></textarea>
+                <button type="submit" class="w-full bg-sky-400 hover:bg-sky-500 text-kitschDark py-2.5 rounded-xl text-xs font-bold pixel-button uppercase">
+                    SEND MESSAGE 🚀
+                </button>
+            </form>
+
+            <!-- 작성된 메시지 리스트 -->
+            <div id="guestbook-list" class="space-y-3">
+                <!-- 샘플 댓글 -->
+                <div class="bg-white p-4 rounded-xl border-2 border-kitschDark shadow-[3px_3px_0px_#1E293B] text-xs space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded border border-kitschDark">친구1</span>
+                        <span class="text-[10px] text-slate-500 font-bold">2026.11.01</span>
+                    </div>
+                    <p class="text-kitschDark font-medium pt-1">벌써 1주년이라니 대박! 숨바꼭질 상품 내꺼야 ㅋㅋㅋ 🔥</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="py-6 text-center bg-slate-800 text-white text-xs font-bold space-y-1">
+            <p>🩶 MOZZI & MUTI 🩵</p>
+            <p class="text-[10px] text-slate-400">2026 1st ANNIVERSARY PARTY</p>
+        </footer>
+
+    </div>
+
+    <!-- 갤러리 이미지 모달 -->
+    <div id="image-modal" class="fixed inset-0 bg-slate-900/80 z-50 hidden flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="relative max-w-sm w-full bg-white p-2 rounded-2xl border-4 border-kitschDark shadow-[8px_8px_0px_#1E293B]">
+            <img id="modal-img" src="" alt="확대 이미지" class="w-full h-auto rounded-xl border-2 border-kitschDark">
+            <button onclick="closeModal()" class="absolute -top-4 -right-4 bg-sky-400 text-kitschDark font-bold w-8 h-8 rounded-full border-2 border-kitschDark flex items-center justify-center shadow-[2px_2px_0px_#1E293B]">
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <!-- 토스트 알림 메시지 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-sky-300 text-kitschDark font-bold text-xs px-6 py-3 rounded-full border-3 border-kitschDark shadow-[4px_4px_0px_#1E293B] z-50">
+        메시지가 등록되었습니다! 🎉
+    </div>
+
+    <script>
+        // 1. D-Day 카운트다운 기능 (2026년 11월 15일 20:00 기준)
+        const targetDate = new Date("2026-11-15T20:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("d-day-container").innerHTML = '<span class="text-accent font-bold">1주년 이벤트가 시작되었습니다!</span>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
+        // 2. 갤러리 모달 오픈/클로즈
+        function openModal(src) {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("modal-img");
+            modalImg.src = src;
+            modal.classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("image-modal").classList.add("hidden");
+        }
+
+        // 3. 방명록 등록 동적 처리
+        function addMessage(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById("guest-name");
+            const msgInput = document.getElementById("guest-msg");
+
+            const name = nameInput.value.trim();
+            const msg = msgInput.value.trim();
+
+            if (!name || !msg) return;
+
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+
+            const newMsgHTML = `
+                    <div class="bg-white p-4 rounded-xl border-2 border-kitschDark shadow-[3px_3px_0px_#1E293B] text-xs space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded border border-kitschDark">${escapeHtml(name)}</span>
+                            <span class="text-[10px] text-slate-500 font-bold">${today}</span>
+                        </div>
+                        <p class="text-kitschDark font-medium pt-1">${escapeHtml(msg)}</p>
+                    </div>
+                `;
+
+            const list = document.getElementById("guestbook-list");
+            list.insertAdjacentHTML('afterbegin', newMsgHTML);
+
+            nameInput.value = '';
+            document.getElementById("guest-pw").value = '';
+            msgInput.value = '';
+
+            showToast("축하 메시지가 등록되었습니다!");
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
