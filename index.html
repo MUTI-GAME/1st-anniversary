@@ -324,6 +324,41 @@
         메시지가 등록되었습니다! 🎉
     </div>
 
+    <!-- Party Starts In 카운트다운: Firebase와 독립적으로 실행 -->
+    <script>
+        (function () {
+            "use strict";
+            // 2026년 11월 15일 오후 8시 (한국 시간, UTC+9)
+            const targetTime = new Date("2026-11-15T20:00:00+09:00").getTime();
+
+            function updateCountdown() {
+                const container = document.getElementById("d-day-container");
+                if (!container) return;
+
+                const distance = targetTime - Date.now();
+                if (distance <= 0) {
+                    container.innerHTML = '<div class="text-sky-200 font-bold text-sm">🎉 PARTY HAS STARTED! 🎉</div>';
+                    return;
+                }
+
+                const values = {
+                    days: Math.floor(distance / 86400000),
+                    hours: Math.floor((distance % 86400000) / 3600000),
+                    minutes: Math.floor((distance % 3600000) / 60000),
+                    seconds: Math.floor((distance % 60000) / 1000)
+                };
+
+                Object.entries(values).forEach(function ([id, value]) {
+                    const element = document.getElementById(id);
+                    if (element) element.textContent = String(value).padStart(2, "0");
+                });
+            }
+
+            updateCountdown();
+            window.setInterval(updateCountdown, 1000);
+        })();
+    </script>
+
     <script>
                 // ======= GitHub Actions Secret 연동을 위한 설정 구조 =======
                 // 깃허브 시크릿으로 빌드 시 값이 치환되거나 주입되는 구조입니다.
@@ -342,49 +377,6 @@
                     firebase.initializeApp(firebaseConfig);
                 }
                 const database = firebase.database();
-
-                // 1. Party Starts In 카운트다운
-                // 2026년 11월 15일 오후 8시 (한국 시간)
-                const targetDate = new Date("2026-11-15T20:00:00+09:00").getTime();
-
-                function updateCountdown() {
-                    const now = Date.now();
-                    const distance = targetDate - now;
-
-                    const container = document.getElementById("d-day-container");
-
-                    if (distance <= 0) {
-                        container.innerHTML = `
-                            <div class="text-sky-200 font-bold text-sm">
-                                🎉 PARTY HAS STARTED! 🎉
-                            </div>
-                        `;
-                        return;
-                    }
-
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-                    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-                    const seconds = Math.floor((distance / 1000) % 60);
-
-                    document.getElementById("days").textContent =
-                        String(days).padStart(2, "0");
-
-                    document.getElementById("hours").textContent =
-                        String(hours).padStart(2, "0");
-
-                    document.getElementById("minutes").textContent =
-                        String(minutes).padStart(2, "0");
-
-                    document.getElementById("seconds").textContent =
-                        String(seconds).padStart(2, "0");
-                }
-
-                // 페이지 접속 즉시 실행
-                updateCountdown();
-
-                // 1초마다 갱신
-                setInterval(updateCountdown, 1000);
 
                 function showToast(message) {
                     const toast = document.getElementById("toast");
