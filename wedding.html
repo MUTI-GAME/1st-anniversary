@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모찌 & 뮤티의 결혼합니다</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts & Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                skyLight: '#F0F9FF',      // 아주 연한 하늘색 배경
+                                skySoft: '#E0F2FE',       // 은은한 하늘빛 보더/배경 Accent
+                                skyDeep: '#0284C7',       // 델피늄 블루 텍스트 Accent
+                                textDark: '#1E293B',      // 차분한 딥 슬레이트
+                                textMuted: '#64748B'      // 부드러운 아날로그 텍스트
+                            },
+                            fontFamily: {
+                                serif: ['"Noto Serif KR"', 'serif'],
+                                enSerif: ['"Cormorant Garamond"', 'serif']
+                            }
+                        }
+                    }
+                }
+    </script>
+    <style>
+        body {
+            background-color: #EBF8FF;
+            font-family: 'Noto Serif KR', serif;
+            word-break: keep-all;
+            color: #1E293B;
+        }
+
+        .wedding-card {
+            max-width: 440px;
+            margin: 0 auto;
+            background-color: #F0F9FF;
+            box-shadow: 0 20px 40px rgba(186, 230, 253, 0.35);
+            border: 1px solid #E0F2FE;
+        }
+
+        /* 데어무드 특유의 세련된 모서리 곡률과 간결한 라인 */
+        .card-inner {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            border: 1px solid #E0F2FE;
+        }
+
+        /* Toast notification */
+        #toast {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+            #toast.show {
+                visibility: visible;
+                opacity: 1;
+            }
+    </style>
+</head>
+<body class="antialiased p-0 sm:p-4">
+
+    <!-- 모바일 청첩장 컨테이너 (최대 너비 440px) -->
+    <div class="wedding-card min-h-screen relative pb-16 my-0 sm:my-4 rounded-3xl overflow-hidden">
+
+        <!-- 1. 메인 커버 섹션 (감성 서체 & 여백) -->
+        <section class="relative text-center pt-16 pb-12 px-6">
+            <p class="font-enSerif italic text-lg text-skyDeep tracking-wider mb-2">Save the Date</p>
+
+            <h1 class="text-2xl font-light text-textDark mb-1 tracking-tight">
+                모찌 <span class="text-skyDeep font-thin mx-1">/</span> 뮤티
+            </h1>
+            <p class="text-[11px] text-textMuted font-light tracking-[0.2em] uppercase mb-10">THE WEDDING DAY</p>
+
+            <!-- 메인 사진 (라운드 프레임 + 그림자) -->
+            <div class="relative w-full h-[420px] rounded-2xl overflow-hidden mb-8 shadow-sm bg-slate-100 border border-skySoft">
+                <img src="불꽃축제.PNG"
+                     alt="웨딩 대표 사진"
+                     class="w-full h-full object-cover"
+                     onerror="this.src='https://placehold.co/440x600/f0f9ff/0284c7?text=MOZZI+%26+MUTI'">
+            </div>
+
+            <div class="text-center space-y-1">
+                <p class="text-sm font-light text-textDark">2026년 11월 15일 일요일 오후 8시</p>
+            </div>
+        </section>
+
+        <!-- 2. 모시는 글 (데어무드 스타일 카드시트) -->
+        <section class="py-12 px-6 border-t border-b border-skySoft/60 bg-white/60">
+            <div class="card-inner p-8 text-center space-y-6">
+                <p class="font-enSerif italic text-skyDeep text-base">Invitation</p>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">소중한 분들을 초대합니다</h2>
+
+                <div class="text-xs text-textMuted leading-relaxed font-light space-y-4">
+                    <p>
+                        맑고 투명한 하늘빛 계절 아래,<br>
+                        백합의 순결함과 델피늄의 고결함을 닮은 두 사람이<br>
+                        하나의 결실을 맺고자 합니다.
+                    </p>
+                    <p>
+                        지난 1년 동안 차곡차곡 쌓아온 소중한 마음을 모아<br>
+                        이제 부부로서의 첫걸음을 내딛으려 합니다.
+                    </p>
+                    <p class="pt-2 text-skyDeep font-normal">
+                        따뜻한 축복과 격려로 저희의 앞날을<br>
+                        환하게 밝혀주시면 감사하겠습니다.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-skySoft/40 text-xs text-textDark">
+                    <span class="font-medium">모찌</span> <span class="text-skyDeep text-[10px] mx-1.5">●</span> <span class="font-medium">뮤티</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 예식 일시 & D-Day 카운트다운 -->
+        <section class="py-14 px-6 text-center">
+            <p class="font-enSerif italic text-skyDeep text-base mb-1">Countdown</p>
+            <h2 class="text-lg font-normal text-textDark mb-8 tracking-tight">2026. 11. 15</h2>
+
+            <!-- D-Day 타이머 (깔끔한 원형/네모 칩) -->
+            <div class="card-inner p-6 max-w-xs mx-auto text-center shadow-sm">
+                <div id="d-day-container" class="flex justify-center gap-3 text-center">
+                    <div class="w-12 py-2 rounded-xl bg-skyLight border border-skySoft">
+                        <span id="days" class="text-base font-medium text-textDark block">00</span>
+                        <span class="text-[9px] text-textMuted block tracking-wider">DAYS</span>
+                    </div>
+                    <span class="text-sm text-skyDeep self-center font-light">:</span>
+                    <div class="w-12 py-2 rounded-xl bg-skyLight border border-skySoft">
+                        <span id="hours" class="text-base font-medium text-textDark block">00</span>
+                        <span class="text-[9px] text-textMuted block tracking-wider">HOURS</span>
+                    </div>
+                    <span class="text-sm text-skyDeep self-center font-light">:</span>
+                    <div class="w-12 py-2 rounded-xl bg-skyLight border border-skySoft">
+                        <span id="minutes" class="text-base font-medium text-textDark block">00</span>
+                        <span class="text-[9px] text-textMuted block tracking-wider">MINS</span>
+                    </div>
+                    <span class="text-sm text-skyDeep self-center font-light">:</span>
+                    <div class="w-12 py-2 rounded-xl bg-skyLight border border-skySoft">
+                        <span id="seconds" class="text-base font-medium text-textDark block">00</span>
+                        <span class="text-[9px] text-textMuted block tracking-wider">SECS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 예식 순서 (타임테이블) -->
+        <section class="py-12 px-6 border-t border-b border-skySoft/60 bg-white/60">
+            <div class="text-center mb-8">
+                <p class="font-enSerif italic text-skyDeep text-base mb-1">Program</p>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">예식 안내</h2>
+            </div>
+
+            <div class="max-w-xs mx-auto space-y-3">
+                <div class="card-inner p-4 flex items-center gap-4">
+                    <div class="w-12 py-1.5 rounded-lg bg-skyLight text-skyDeep text-center text-xs font-medium border border-skySoft">
+                        20:00
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-medium text-textDark">💍 언약식</h3>
+                        <p class="text-[11px] text-textMuted mt-0.5">모찌와 뮤티의 언약식</p>
+                    </div>
+                </div>
+
+                <div class="card-inner p-4 flex items-center gap-4">
+                    <div class="w-12 py-1.5 rounded-lg bg-skyLight text-skyDeep text-center text-xs font-medium border border-skySoft">
+                        21:00
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-medium text-textDark">🎵 노래 제목 맞추기</h3>
+                        <p class="text-[11px] text-textMuted mt-0.5">이 노래의 제목은 무엇일까요?</p>
+                    </div>
+                </div>
+
+                <div class="card-inner p-4 flex items-center gap-4">
+                    <div class="w-12 py-1.5 rounded-lg bg-skyLight text-skyDeep text-center text-xs font-medium border border-skySoft">
+                        22:00
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-medium text-textDark">🧩 퀴즈쇼</h3>
+                        <p class="text-[11px] text-textMuted mt-0.5">모찌 & 뮤티 TMI 서바이벌 퀴즈</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 갤러리 섹션 -->
+        <section class="py-14 px-6">
+            <div class="text-center mb-8">
+                <p class="font-enSerif italic text-skyDeep text-base mb-1">Gallery</p>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">소중한 순간들</h2>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="1_슈가슈가룬.png" alt="갤러리1" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="2_바다앉기.png" alt="갤러리2" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="3_바다경례.PNG" alt="갤러리3" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="4_장난모찌.png" alt="갤러리4" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="5_청혼.PNG" alt="갤러리5" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
+                    <img src="6_벽치기.jpg" alt="갤러리6" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 축하 메시지 (방명록) -->
+        <section class="py-14 px-6 border-t border-skySoft/60 bg-white/60">
+            <div class="text-center mb-6">
+                <p class="font-enSerif italic text-skyDeep text-base mb-1">Guestbook</p>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">축하 메시지</h2>
+            </div>
+
+            <form id="guestbook-form" onsubmit="addMessage(event)" class="card-inner p-5 mb-6 space-y-3">
+                <div>
+                    <input type="text" id="guest-name" placeholder="성함 (닉네임)" required
+                           class="w-full px-3.5 py-2 text-xs border border-skySoft rounded-xl focus:outline-none focus:border-skyDeep bg-skyLight/30 font-light">
+                </div>
+                <textarea id="guest-msg" placeholder="따뜻한 축하의 한마디를 적어주세요." rows="3" required
+                          class="w-full px-3.5 py-2 text-xs border border-skySoft rounded-xl focus:outline-none focus:border-skyDeep resize-none bg-skyLight/30 font-light"></textarea>
+                <button type="submit" class="w-full bg-skyDeep text-white py-2.5 rounded-xl text-xs font-light tracking-widest shadow-sm hover:bg-sky-700 transition">
+                    SEND MESSAGE
+                </button>
+            </form>
+
+            <div id="guestbook-list" class="space-y-3">
+                <!-- 동적으로 Firebase 데이터가 표시됩니다 -->
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="py-8 text-center bg-white border-t border-skySoft text-textMuted text-xs space-y-1">
+            <p class="font-enSerif italic text-sm text-skyDeep">Mozzi & Muti Wedding</p>
+            <p class="text-[10px] text-textMuted/70 font-light tracking-widest">2026. 11. 15</p>
+        </footer>
+
+    </div>
+
+    <!-- 갤러리 이미지 모달 -->
+    <div id="image-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="relative max-w-sm w-full bg-white p-2 rounded-2xl shadow-xl border border-skySoft">
+            <img id="modal-img" src="" alt="확대 이미지" class="w-full h-auto rounded-xl">
+            <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-white text-textDark w-7 h-7 rounded-full flex items-center justify-center text-xs shadow border border-skySoft">
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <!-- 토스트 알림 메시지 -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-textDark text-white font-light text-xs px-6 py-2.5 rounded-full shadow-lg z-50 tracking-wide">
+        메시지가 등록되었습니다 ✨
+    </div>
+
+    <script>
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDK14IQ8VAeYfSsOBKFFpgNIeobzsJuNE0",
+                    authDomain: "stanniversary.firebaseapp.com",
+                    databaseURL: "https://stanniversary-default-rtdb.firebaseio.com",
+                    projectId: "stanniversary",
+                    storageBucket: "stanniversary.firebasestorage.app",
+                    messagingSenderId: "1008258266602",
+                    appId: "1:1008258266602:web:3665c70efbe3ee5b0cae93",
+                    measurementId: "G-NHP05MMVZ2"
+                };
+
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                const database = firebase.database();
+
+                const targetDate = new Date("2026-11-15T20:00:00").getTime();
+
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
+
+                    if (distance < 0) {
+                        document.getElementById("d-day-container").innerHTML = '<span class="font-light text-skyDeep text-xs">결혼식이 시작되었습니다 ✨</span>';
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("days").innerText = String(days).padStart(2, '0');
+                    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+                }
+
+                setInterval(updateCountdown, 1000);
+                updateCountdown();
+
+                function showToast(message) {
+                    const toast = document.getElementById("toast");
+                    toast.innerText = message;
+                    toast.classList.add("show");
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 2500);
+                }
+
+                function openModal(src) {
+                    const modal = document.getElementById("image-modal");
+                    const modalImg = document.getElementById("modal-img");
+                    modalImg.src = src;
+                    modal.classList.remove("hidden");
+                }
+
+                function closeModal() {
+                    document.getElementById("image-modal").classList.add("hidden");
+                }
+
+                function addMessage(event) {
+                    event.preventDefault();
+                    const nameInput = document.getElementById("guest-name");
+                    const msgInput = document.getElementById("guest-msg");
+
+                    const name = nameInput.value.trim();
+                    const msg = msgInput.value.trim();
+
+                    if (!name || !msg) return;
+
+                    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+
+                    database.ref('guestbook').push({
+                        name: name,
+                        message: msg,
+                        date: today
+                    }).then(() => {
+                        nameInput.value = '';
+                        msgInput.value = '';
+                        showToast("축하 메시지가 등록되었습니다 ✨");
+                    }).catch((error) => {
+                        alert("방명록 서버 연결에 실패했습니다.\n(" + error.message + ")");
+                    });
+                }
+
+                database.ref('guestbook').on('child_added', (snapshot) => {
+                    const data = snapshot.val();
+                    const list = document.getElementById("guestbook-list");
+
+                    const newMsgHTML = `
+                        <div class="card-inner p-4 text-xs space-y-1">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-skyDeep bg-skyLight px-2 py-0.5 rounded-full border border-skySoft">${escapeHtml(data.name)}</span>
+                                <span class="text-[10px] text-textMuted font-light">${data.date}</span>
+                            </div>
+                            <p class="text-textDark font-light pt-1.5 leading-relaxed">${escapeHtml(data.message)}</p>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('afterbegin', newMsgHTML);
+                });
+
+                function escapeHtml(str) {
+                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+                }
+    </script>
+</body>
+</html>
