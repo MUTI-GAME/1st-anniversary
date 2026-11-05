@@ -77,7 +77,17 @@
     <!-- 모바일 청첩장 컨테이너 (최대 너비 440px) -->
     <div class="wedding-card min-h-screen relative pb-16 my-0 sm:my-4 rounded-3xl overflow-hidden">
 
-        <!-- 1. 메인 풀스크린 커버 섹션 (사진 풀사이즈 + 하얀 필기체 오버레이 위치 조정) -->
+        <!-- 0. 상단 버전 선택 네비게이션 버튼 -->
+        <nav class="absolute top-4 left-1/2 -translate-x-1/2 z-30 bg-black/40 backdrop-blur-md p-1 rounded-full border border-white/20 flex gap-1 shadow-lg text-xs font-sans">
+            <a href="index.html" class="px-3 py-1.5 rounded-full text-white/80 hover:text-white transition font-medium">
+                🎮 파티 초대장
+            </a>
+            <a href="wedding.html" class="px-3 py-1.5 rounded-full bg-white text-slate-900 font-bold shadow-sm">
+                💍 웨딩 청첩장
+            </a>
+        </nav>
+
+        <!-- 1. 메인 풀스크린 커버 섹션 -->
         <section class="relative w-full h-[640px] sm:h-[680px] overflow-hidden bg-slate-900">
             <!-- 메인 배경 이미지 -->
             <img src="메인.PNG"
@@ -86,9 +96,9 @@
                  onerror="this.src='https://placehold.co/440x700/e0f2fe/0284c7?text=MOZZI+%26+MUTI'">
 
             <!-- 사진 위 은은한 어두운 그래디언트 오버레이 -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60"></div>
 
-            <!-- 하얀색 영문 필기체 텍스트 (기존 top-1/3에서 아래로 위치 조정) -->
+            <!-- 하얀색 영문 필기체 텍스트 -->
             <div class="absolute inset-x-0 top-[52%] -translate-y-1/2 text-center text-white px-4 pointer-events-none select-none">
                 <p class="font-cursive text-5xl sm:text-6xl text-white/95 leading-tight tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     happily<br>ever after

@@ -23,11 +23,11 @@
                     theme: {
                         extend: {
                             colors: {
-                                kitschPink: '#87CEEB', // Sky Blue accent
-                                kitschPurple: '#64748B', // Slate Gray
-                                kitschYellow: '#E2E8F0', // Soft Light Gray
-                                kitschMint: '#BAE6FD', // Light Sky Blue
-                                kitschDark: '#1E293B' // Deep Charcoal
+                                kitschPink: '#87CEEB',
+                                kitschPurple: '#64748B',
+                                kitschYellow: '#E2E8F0',
+                                kitschMint: '#BAE6FD',
+                                kitschDark: '#1E293B'
                             },
                             fontFamily: {
                                 kitsch: ['NeoDunggeunmo', 'Fredoka', 'sans-serif']
@@ -87,7 +87,19 @@
             }
     </style>
 </head>
-<body class="antialiased text-kitschDark p-0 sm:p-4">
+<body class="antialiased text-kitschDark p-0 sm:p-4 pt-16 sm:pt-20">
+
+    <!-- 최상위 레벨에 고정 배치한 버전 전환 버튼 (무조건 상단 중앙에 노출) -->
+    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50">
+        <div class="bg-white p-1 rounded-2xl border-3 border-kitschDark shadow-[4px_4px_0px_#1E293B] flex gap-1 text-xs">
+            <a href="index.html" class="px-3 py-1.5 rounded-xl bg-sky-300 text-kitschDark font-bold border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                🎮 파티 초대장
+            </a>
+            <a href="wedding.html" class="px-3 py-1.5 rounded-xl text-slate-500 font-bold hover:text-kitschDark transition">
+                💍 웨딩 청첩장
+            </a>
+        </div>
+    </div>
 
     <!-- 모바일 컨테이너 (최대 너비 480px) -->
     <div class="invitation-card min-h-screen relative overflow-hidden pb-16 my-0 sm:my-4 rounded-3xl">
