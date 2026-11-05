@@ -8,38 +8,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts & Web Fonts -->
+    <!-- Google Fonts (영문 필기체 Alex Brush, 감성 세리프 Noto Serif KR & Gowun Batang) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <script>
-                tailwind.config = {
-                    theme: {
-                        extend: {
-                            colors: {
-                                skyLight: '#F0F9FF',      // 아주 연한 하늘색 배경
-                                skySoft: '#E0F2FE',       // 은은한 하늘빛 보더/배경 Accent
-                                skyDeep: '#0284C7',       // 델피늄 블루 텍스트 Accent
-                                textDark: '#1E293B',      // 차분한 딥 슬레이트
-                                textMuted: '#64748B'      // 부드러운 아날로그 텍스트
-                            },
-                            fontFamily: {
-                                serif: ['"Noto Serif KR"', 'serif'],
-                                enSerif: ['"Cormorant Garamond"', 'serif']
-                            }
-                        }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyLight: '#F0F9FF',
+                        skySoft: '#E0F2FE',
+                        skyDeep: '#0284C7',
+                        textDark: '#1E293B',
+                        textMuted: '#64748B'
+                    },
+                    fontFamily: {
+                        serif: ['"Gowun Batang"', '"Noto Serif KR"', 'serif'],
+                        cursive: ['"Alex Brush"', 'cursive'],
+                        enSerif: ['"Cormorant Garamond"', 'serif']
                     }
                 }
+            }
+        }
     </script>
     <style>
         body {
             background-color: #EBF8FF;
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Gowun Batang', 'Noto Serif KR', serif;
             word-break: keep-all;
             color: #1E293B;
         }
@@ -52,7 +53,6 @@
             border: 1px solid #E0F2FE;
         }
 
-        /* 데어무드 특유의 세련된 모서리 곡률과 간결한 라인 */
         .card-inner {
             background-color: #FFFFFF;
             border-radius: 20px;
@@ -66,10 +66,10 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-            #toast.show {
-                visibility: visible;
-                opacity: 1;
-            }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="antialiased p-0 sm:p-4">
@@ -77,47 +77,55 @@
     <!-- 모바일 청첩장 컨테이너 (최대 너비 440px) -->
     <div class="wedding-card min-h-screen relative pb-16 my-0 sm:my-4 rounded-3xl overflow-hidden">
 
-        <!-- 1. 메인 커버 섹션 (감성 서체 & 여백) -->
-        <section class="relative text-center pt-16 pb-12 px-6">
-            <p class="font-enSerif italic text-lg text-skyDeep tracking-wider mb-2">Save the Date</p>
+        <!-- 1. 메인 풀스크린 커버 섹션 (사진 풀사이즈 + 하얀 필기체 오버레이) -->
+        <section class="relative w-full h-[640px] sm:h-[680px] overflow-hidden bg-slate-900">
+            <!-- 메인 배경 이미지 -->
+            <img src="메인.PNG"
+                 alt="웨딩 메인 사진"
+                 class="w-full h-full object-cover opacity-90 brightness-95"
+                 onerror="this.src='https://placehold.co/440x700/e0f2fe/0284c7?text=MOZZI+%26+MUTI'">
 
-            <h1 class="text-2xl font-light text-textDark mb-1 tracking-tight">
-                모찌 <span class="text-skyDeep font-thin mx-1">/</span> 뮤티
-            </h1>
-            <p class="text-[11px] text-textMuted font-light tracking-[0.2em] uppercase mb-10">THE WEDDING DAY</p>
+            <!-- 사진 위 은은한 어두운 그래디언트 오버레이 -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60"></div>
 
-            <!-- 메인 사진 (라운드 프레임 + 그림자) -->
-            <div class="relative w-full h-[420px] rounded-2xl overflow-hidden mb-8 shadow-sm bg-slate-100 border border-skySoft">
-                <img src="불꽃축제.PNG"
-                     alt="웨딩 대표 사진"
-                     class="w-full h-full object-cover"
-                     onerror="this.src='https://placehold.co/440x600/f0f9ff/0284c7?text=MOZZI+%26+MUTI'">
+            <!-- 하얀색 영문 필기체 텍스트 -->
+            <div class="absolute inset-x-0 top-1/3 -translate-y-1/2 text-center text-white px-4 pointer-events-none select-none">
+                <p class="font-cursive text-5xl sm:text-6xl text-white/95 leading-tight tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                    happily<br>ever after
+                </p>
             </div>
 
-            <div class="text-center space-y-1">
-                <p class="text-sm font-light text-textDark">2026년 11월 15일 일요일 오후 8시</p>
+            <!-- 하단 신랑신부 이름 & 결혼식 날짜 -->
+            <div class="absolute inset-x-0 bottom-10 text-center text-white px-6 space-y-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                <h1 class="text-2xl font-light tracking-wide">
+                    모찌 <span class="font-extralight text-sky-200 text-lg mx-1">&</span> 뮤티
+                </h1>
+                <p class="text-sm font-light tracking-widest text-slate-100/90">
+                    2026. 11. 15 SUN PM 8:00
+                </p>
             </div>
         </section>
 
-        <!-- 2. 모시는 글 (데어무드 스타일 카드시트) -->
-        <section class="py-12 px-6 border-t border-b border-skySoft/60 bg-white/60">
+        <!-- 2. 모시는 글 -->
+        <section class="py-14 px-6 border-b border-skySoft/60 bg-white/60">
             <div class="card-inner p-8 text-center space-y-6">
                 <p class="font-enSerif italic text-skyDeep text-base">Invitation</p>
-                <h2 class="text-lg font-normal text-textDark tracking-tight">소중한 분들을 초대합니다</h2>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">1주년 언약식에 초대합니다</h2>
 
                 <div class="text-xs text-textMuted leading-relaxed font-light space-y-4">
                     <p>
-                        맑고 투명한 하늘빛 계절 아래,<br>
-                        백합의 순결함과 델피늄의 고결함을 닮은 두 사람이<br>
-                        하나의 결실을 맺고자 합니다.
+                        소중한 순간들을 차곡차곡 쌓아온<br>
+                        <span class="font-medium text-textDark">모찌(MOZZI)</span>와 <span class="font-medium text-skyDeep">뮤티(MUTI)</span>가<br>
+                        어느덧 1주년을 맞이했습니다.
                     </p>
                     <p>
-                        지난 1년 동안 차곡차곡 쌓아온 소중한 마음을 모아<br>
-                        이제 부부로서의 첫걸음을 내딛으려 합니다.
+                        마비노기에서 소중한 시간을 함께해 준 친구분들과<br>
+                        저희의 소중한 첫 해를 기념하며<br>
+                        뜻깊고 특별한 시간을 준비했습니다.
                     </p>
                     <p class="pt-2 text-skyDeep font-normal">
-                        따뜻한 축복과 격려로 저희의 앞날을<br>
-                        환하게 밝혀주시면 감사하겠습니다.
+                        즐거운 언약식과 미니 게임이 기다리고 있으니<br>
+                        꼭 오셔서 자리를 빛내주시면 감사하겠습니다.
                     </p>
                 </div>
 
@@ -132,7 +140,6 @@
             <p class="font-enSerif italic text-skyDeep text-base mb-1">Countdown</p>
             <h2 class="text-lg font-normal text-textDark mb-8 tracking-tight">2026. 11. 15</h2>
 
-            <!-- D-Day 타이머 (깔끔한 원형/네모 칩) -->
             <div class="card-inner p-6 max-w-xs mx-auto text-center shadow-sm">
                 <div id="d-day-container" class="flex justify-center gap-3 text-center">
                     <div class="w-12 py-2 rounded-xl bg-skyLight border border-skySoft">
@@ -159,10 +166,10 @@
         </section>
 
         <!-- 4. 예식 순서 (타임테이블) -->
-        <section class="py-12 px-6 border-t border-b border-skySoft/60 bg-white/60">
+        <section class="py-14 px-6 border-t border-b border-skySoft/60 bg-white/60">
             <div class="text-center mb-8">
                 <p class="font-enSerif italic text-skyDeep text-base mb-1">Program</p>
-                <h2 class="text-lg font-normal text-textDark tracking-tight">예식 안내</h2>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">이벤트 안내</h2>
             </div>
 
             <div class="max-w-xs mx-auto space-y-3">
@@ -207,36 +214,36 @@
 
             <div class="grid grid-cols-3 gap-2">
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="1_슈가슈가룬.png" alt="갤러리1" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="1_블루레몬.png" alt="갤러리1" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="2_바다앉기.png" alt="갤러리2" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="2_포도땃쥐.png" alt="갤러리2" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="3_바다경례.PNG" alt="갤러리3" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="3_린렌.PNG" alt="갤러리3" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="4_장난모찌.png" alt="갤러리4" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="4_린송구.png" alt="갤러리4" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="5_청혼.PNG" alt="갤러리5" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="5_뮤티모찌.png" alt="갤러리5" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-white aspect-square border border-skySoft shadow-sm">
-                    <img src="6_벽치기.jpg" alt="갤러리6" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
+                    <img src="6_슈가슈가룬.png" alt="갤러리6" class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition" onclick="openModal(this.src)">
                 </div>
             </div>
         </section>
 
-        <!-- 6. 축하 메시지 (방명록) -->
+        <!-- 6. 축하 메시지 (방명록 - Firebase 공유) -->
         <section class="py-14 px-6 border-t border-skySoft/60 bg-white/60">
             <div class="text-center mb-6">
                 <p class="font-enSerif italic text-skyDeep text-base mb-1">Guestbook</p>
-                <h2 class="text-lg font-normal text-textDark tracking-tight">축하 메시지</h2>
+                <h2 class="text-lg font-normal text-textDark tracking-tight">축하 메시지 남기기</h2>
             </div>
 
             <form id="guestbook-form" onsubmit="addMessage(event)" class="card-inner p-5 mb-6 space-y-3">
                 <div>
-                    <input type="text" id="guest-name" placeholder="성함 (닉네임)" required
+                    <input type="text" id="guest-name" placeholder="닉네임 (성함)" required
                            class="w-full px-3.5 py-2 text-xs border border-skySoft rounded-xl focus:outline-none focus:border-skyDeep bg-skyLight/30 font-light">
                 </div>
                 <textarea id="guest-msg" placeholder="따뜻한 축하의 한마디를 적어주세요." rows="3" required
@@ -247,7 +254,7 @@
             </form>
 
             <div id="guestbook-list" class="space-y-3">
-                <!-- 동적으로 Firebase 데이터가 표시됩니다 -->
+                <!-- Firebase에서 실시간으로 공유된 방명록이 로드됩니다 -->
             </div>
         </section>
 
@@ -275,111 +282,115 @@
     </div>
 
     <script>
-                const firebaseConfig = {
-                    apiKey: "AIzaSyDK14IQ8VAeYfSsOBKFFpgNIeobzsJuNE0",
-                    authDomain: "stanniversary.firebaseapp.com",
-                    databaseURL: "https://stanniversary-default-rtdb.firebaseio.com",
-                    projectId: "stanniversary",
-                    storageBucket: "stanniversary.firebasestorage.app",
-                    messagingSenderId: "1008258266602",
-                    appId: "1:1008258266602:web:3665c70efbe3ee5b0cae93",
-                    measurementId: "G-NHP05MMVZ2"
-                };
+        // 파티 초대장과 동일한 Firebase 실시간 DB 연동 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDK14IQ8VAeYfSsOBKFFpgNIeobzsJuNE0",
+            authDomain: "stanniversary.firebaseapp.com",
+            databaseURL: "https://stanniversary-default-rtdb.firebaseio.com",
+            projectId: "stanniversary",
+            storageBucket: "stanniversary.firebasestorage.app",
+            messagingSenderId: "1008258266602",
+            appId: "1:1008258266602:web:3665c70efbe3ee5b0cae93",
+            measurementId: "G-NHP05MMVZ2"
+        };
 
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                const database = firebase.database();
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
 
-                const targetDate = new Date("2026-11-15T20:00:00").getTime();
+        // D-Day 카운트다운 설정 (2026년 11월 15일 20:00 기준)
+        const targetDate = new Date("2026-11-15T20:00:00").getTime();
 
-                function updateCountdown() {
-                    const now = new Date().getTime();
-                    const distance = targetDate - now;
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-                    if (distance < 0) {
-                        document.getElementById("d-day-container").innerHTML = '<span class="font-light text-skyDeep text-xs">결혼식이 시작되었습니다 ✨</span>';
-                        return;
-                    }
+            if (distance < 0) {
+                document.getElementById("d-day-container").innerHTML = '<span class="font-light text-skyDeep text-xs">결혼식이 시작되었습니다 ✨</span>';
+                return;
+            }
 
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    document.getElementById("days").innerText = String(days).padStart(2, '0');
-                    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-                    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-                    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-                }
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
 
-                setInterval(updateCountdown, 1000);
-                updateCountdown();
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
-                function showToast(message) {
-                    const toast = document.getElementById("toast");
-                    toast.innerText = message;
-                    toast.classList.add("show");
-                    setTimeout(() => {
-                        toast.classList.remove("show");
-                    }, 2500);
-                }
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
 
-                function openModal(src) {
-                    const modal = document.getElementById("image-modal");
-                    const modalImg = document.getElementById("modal-img");
-                    modalImg.src = src;
-                    modal.classList.remove("hidden");
-                }
+        function openModal(src) {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("modal-img");
+            modalImg.src = src;
+            modal.classList.remove("hidden");
+        }
 
-                function closeModal() {
-                    document.getElementById("image-modal").classList.add("hidden");
-                }
+        function closeModal() {
+            document.getElementById("image-modal").classList.add("hidden");
+        }
 
-                function addMessage(event) {
-                    event.preventDefault();
-                    const nameInput = document.getElementById("guest-name");
-                    const msgInput = document.getElementById("guest-msg");
+        // 방명록 데이터 전송 (기존과 동일한 'guestbook' 경로로 저장되어 데이터 공유됨)
+        function addMessage(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById("guest-name");
+            const msgInput = document.getElementById("guest-msg");
 
-                    const name = nameInput.value.trim();
-                    const msg = msgInput.value.trim();
+            const name = nameInput.value.trim();
+            const msg = msgInput.value.trim();
 
-                    if (!name || !msg) return;
+            if (!name || !msg) return;
 
-                    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
 
-                    database.ref('guestbook').push({
-                        name: name,
-                        message: msg,
-                        date: today
-                    }).then(() => {
-                        nameInput.value = '';
-                        msgInput.value = '';
-                        showToast("축하 메시지가 등록되었습니다 ✨");
-                    }).catch((error) => {
-                        alert("방명록 서버 연결에 실패했습니다.\n(" + error.message + ")");
-                    });
-                }
+            database.ref('guestbook').push({
+                name: name,
+                message: msg,
+                date: today
+            }).then(() => {
+                nameInput.value = '';
+                msgInput.value = '';
+                showToast("축하 메시지가 등록되었습니다 ✨");
+            }).catch((error) => {
+                alert("방명록 서버 연결에 실패했습니다.\n(" + error.message + ")");
+            });
+        }
 
-                database.ref('guestbook').on('child_added', (snapshot) => {
-                    const data = snapshot.val();
-                    const list = document.getElementById("guestbook-list");
+        // Firebase 실시간 방명록 리스트 불러오기
+        database.ref('guestbook').on('child_added', (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById("guestbook-list");
 
-                    const newMsgHTML = `
-                        <div class="card-inner p-4 text-xs space-y-1">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-skyDeep bg-skyLight px-2 py-0.5 rounded-full border border-skySoft">${escapeHtml(data.name)}</span>
-                                <span class="text-[10px] text-textMuted font-light">${data.date}</span>
-                            </div>
-                            <p class="text-textDark font-light pt-1.5 leading-relaxed">${escapeHtml(data.message)}</p>
-                        </div>
-                    `;
-                    list.insertAdjacentHTML('afterbegin', newMsgHTML);
-                });
+            const newMsgHTML = `
+                <div class="card-inner p-4 text-xs space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-skyDeep bg-skyLight px-2 py-0.5 rounded-full border border-skySoft">${escapeHtml(data.name)}</span>
+                        <span class="text-[10px] text-textMuted font-light">${data.date}</span>
+                    </div>
+                    <p class="text-textDark font-light pt-1.5 leading-relaxed">${escapeHtml(data.message)}</p>
+                </div>
+            `;
+            list.insertAdjacentHTML('afterbegin', newMsgHTML);
+        });
 
-                function escapeHtml(str) {
-                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-                }
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
     </script>
 </body>
 </html>
