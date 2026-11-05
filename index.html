@@ -87,25 +87,25 @@
             }
     </style>
 </head>
-<body class="antialiased text-kitschDark p-0 sm:p-4 pt-16 sm:pt-20">
-
-    <!-- 최상위 레벨에 고정 배치한 버전 전환 버튼 (무조건 상단 중앙에 노출) -->
-    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50">
-        <div class="bg-white p-1 rounded-2xl border-3 border-kitschDark shadow-[4px_4px_0px_#1E293B] flex gap-1 text-xs">
-            <a href="index.html" class="px-3 py-1.5 rounded-xl bg-sky-300 text-kitschDark font-bold border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
-                🎮 파티 초대장
-            </a>
-            <a href="wedding.html" class="px-3 py-1.5 rounded-xl text-slate-500 font-bold hover:text-kitschDark transition">
-                💍 웨딩 청첩장
-            </a>
-        </div>
-    </div>
+<body class="antialiased text-kitschDark p-0 sm:p-4">
 
     <!-- 모바일 컨테이너 (최대 너비 480px) -->
     <div class="invitation-card min-h-screen relative overflow-hidden pb-16 my-0 sm:my-4 rounded-3xl">
 
+        <!-- 0. 레트로 스타일 상단 버전 선택 네비게이션 버튼 -->
+        <nav class="sticky top-3 z-30 flex justify-center my-3 px-4">
+            <div class="bg-white p-1 rounded-2xl border-3 border-kitschDark shadow-[4px_4px_0px_#1E293B] flex gap-1 text-xs">
+                <a href="index.html" class="px-3 py-1.5 rounded-xl bg-sky-300 text-kitschDark font-bold border-2 border-kitschDark shadow-[2px_2px_0px_#1E293B]">
+                    🎮 파티 초대장
+                </a>
+                <a href="wedding.html" class="px-3 py-1.5 rounded-xl text-slate-500 font-bold hover:text-kitschDark transition">
+                    💍 웨딩 청첩장
+                </a>
+            </div>
+        </nav>
+
         <!-- 1. 커버 섹션 -->
-        <section class="relative text-center pt-8 pb-12 px-6 border-b-4 border-kitschDark checker-bg">
+        <section class="relative text-center pt-4 pb-12 px-6 border-b-4 border-kitschDark checker-bg">
             <!-- 키치 뱃지 -->
             <div class="inline-block bg-kitschMint text-kitschDark font-bold px-4 py-1.5 rounded-full border-2 border-kitschDark shadow-[3px_3px_0px_#1E293B] text-xs uppercase tracking-wider mb-4 animate-bounce">
                 🩵 1ST ANNIVERSARY PARTY 🩵
