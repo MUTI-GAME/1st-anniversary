@@ -18,24 +18,24 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        skyLight: '#F0F9FF',
-                        skySoft: '#E0F2FE',
-                        skyDeep: '#0284C7',
-                        textDark: '#1E293B',
-                        textMuted: '#64748B'
-                    },
-                    fontFamily: {
-                        serif: ['"Gowun Batang"', '"Noto Serif KR"', 'serif'],
-                        cursive: ['"Alex Brush"', 'cursive'],
-                        enSerif: ['"Cormorant Garamond"', 'serif']
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                skyLight: '#F0F9FF',
+                                skySoft: '#E0F2FE',
+                                skyDeep: '#0284C7',
+                                textDark: '#1E293B',
+                                textMuted: '#64748B'
+                            },
+                            fontFamily: {
+                                serif: ['"Gowun Batang"', '"Noto Serif KR"', 'serif'],
+                                cursive: ['"Alex Brush"', 'cursive'],
+                                enSerif: ['"Cormorant Garamond"', 'serif']
+                            }
+                        }
                     }
                 }
-            }
-        }
     </script>
     <style>
         body {
@@ -66,10 +66,10 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-        }
+            #toast.show {
+                visibility: visible;
+                opacity: 1;
+            }
     </style>
 </head>
 <body class="antialiased p-0 sm:p-4">
@@ -77,7 +77,7 @@
     <!-- 모바일 청첩장 컨테이너 (최대 너비 440px) -->
     <div class="wedding-card min-h-screen relative pb-16 my-0 sm:my-4 rounded-3xl overflow-hidden">
 
-        <!-- 1. 메인 풀스크린 커버 섹션 (사진 풀사이즈 + 하얀 필기체 오버레이) -->
+        <!-- 1. 메인 풀스크린 커버 섹션 (사진 풀사이즈 + 하얀 필기체 오버레이 위치 조정) -->
         <section class="relative w-full h-[640px] sm:h-[680px] overflow-hidden bg-slate-900">
             <!-- 메인 배경 이미지 -->
             <img src="메인.PNG"
@@ -88,8 +88,8 @@
             <!-- 사진 위 은은한 어두운 그래디언트 오버레이 -->
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60"></div>
 
-            <!-- 하얀색 영문 필기체 텍스트 -->
-            <div class="absolute inset-x-0 top-1/3 -translate-y-1/2 text-center text-white px-4 pointer-events-none select-none">
+            <!-- 하얀색 영문 필기체 텍스트 (기존 top-1/3에서 아래로 위치 조정) -->
+            <div class="absolute inset-x-0 top-[52%] -translate-y-1/2 text-center text-white px-4 pointer-events-none select-none">
                 <p class="font-cursive text-5xl sm:text-6xl text-white/95 leading-tight tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     happily<br>ever after
                 </p>
@@ -282,115 +282,111 @@
     </div>
 
     <script>
-        // 파티 초대장과 동일한 Firebase 실시간 DB 연동 설정
-        const firebaseConfig = {
-            apiKey: "AIzaSyDK14IQ8VAeYfSsOBKFFpgNIeobzsJuNE0",
-            authDomain: "stanniversary.firebaseapp.com",
-            databaseURL: "https://stanniversary-default-rtdb.firebaseio.com",
-            projectId: "stanniversary",
-            storageBucket: "stanniversary.firebasestorage.app",
-            messagingSenderId: "1008258266602",
-            appId: "1:1008258266602:web:3665c70efbe3ee5b0cae93",
-            measurementId: "G-NHP05MMVZ2"
-        };
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDK14IQ8VAeYfSsOBKFFpgNIeobzsJuNE0",
+                    authDomain: "stanniversary.firebaseapp.com",
+                    databaseURL: "https://stanniversary-default-rtdb.firebaseio.com",
+                    projectId: "stanniversary",
+                    storageBucket: "stanniversary.firebasestorage.app",
+                    messagingSenderId: "1008258266602",
+                    appId: "1:1008258266602:web:3665c70efbe3ee5b0cae93",
+                    measurementId: "G-NHP05MMVZ2"
+                };
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const database = firebase.database();
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                const database = firebase.database();
 
-        // D-Day 카운트다운 설정 (2026년 11월 15일 20:00 기준)
-        const targetDate = new Date("2026-11-15T20:00:00").getTime();
+                const targetDate = new Date("2026-11-15T20:00:00").getTime();
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
 
-            if (distance < 0) {
-                document.getElementById("d-day-container").innerHTML = '<span class="font-light text-skyDeep text-xs">결혼식이 시작되었습니다 ✨</span>';
-                return;
-            }
+                    if (distance < 0) {
+                        document.getElementById("d-day-container").innerHTML = '<span class="font-light text-skyDeep text-xs">결혼식이 시작되었습니다 ✨</span>';
+                        return;
+                    }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = String(days).padStart(2, '0');
-            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-        }
+                    document.getElementById("days").innerText = String(days).padStart(2, '0');
+                    document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                    document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                    document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+                }
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+                setInterval(updateCountdown, 1000);
+                updateCountdown();
 
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.classList.add("show");
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2500);
-        }
+                function showToast(message) {
+                    const toast = document.getElementById("toast");
+                    toast.innerText = message;
+                    toast.classList.add("show");
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 2500);
+                }
 
-        function openModal(src) {
-            const modal = document.getElementById("image-modal");
-            const modalImg = document.getElementById("modal-img");
-            modalImg.src = src;
-            modal.classList.remove("hidden");
-        }
+                function openModal(src) {
+                    const modal = document.getElementById("image-modal");
+                    const modalImg = document.getElementById("modal-img");
+                    modalImg.src = src;
+                    modal.classList.remove("hidden");
+                }
 
-        function closeModal() {
-            document.getElementById("image-modal").classList.add("hidden");
-        }
+                function closeModal() {
+                    document.getElementById("image-modal").classList.add("hidden");
+                }
 
-        // 방명록 데이터 전송 (기존과 동일한 'guestbook' 경로로 저장되어 데이터 공유됨)
-        function addMessage(event) {
-            event.preventDefault();
-            const nameInput = document.getElementById("guest-name");
-            const msgInput = document.getElementById("guest-msg");
+                function addMessage(event) {
+                    event.preventDefault();
+                    const nameInput = document.getElementById("guest-name");
+                    const msgInput = document.getElementById("guest-msg");
 
-            const name = nameInput.value.trim();
-            const msg = msgInput.value.trim();
+                    const name = nameInput.value.trim();
+                    const msg = msgInput.value.trim();
 
-            if (!name || !msg) return;
+                    if (!name || !msg) return;
 
-            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+                    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
 
-            database.ref('guestbook').push({
-                name: name,
-                message: msg,
-                date: today
-            }).then(() => {
-                nameInput.value = '';
-                msgInput.value = '';
-                showToast("축하 메시지가 등록되었습니다 ✨");
-            }).catch((error) => {
-                alert("방명록 서버 연결에 실패했습니다.\n(" + error.message + ")");
-            });
-        }
+                    database.ref('guestbook').push({
+                        name: name,
+                        message: msg,
+                        date: today
+                    }).then(() => {
+                        nameInput.value = '';
+                        msgInput.value = '';
+                        showToast("축하 메시지가 등록되었습니다 ✨");
+                    }).catch((error) => {
+                        alert("방명록 서버 연결에 실패했습니다.\n(" + error.message + ")");
+                    });
+                }
 
-        // Firebase 실시간 방명록 리스트 불러오기
-        database.ref('guestbook').on('child_added', (snapshot) => {
-            const data = snapshot.val();
-            const list = document.getElementById("guestbook-list");
+                database.ref('guestbook').on('child_added', (snapshot) => {
+                    const data = snapshot.val();
+                    const list = document.getElementById("guestbook-list");
 
-            const newMsgHTML = `
-                <div class="card-inner p-4 text-xs space-y-1">
-                    <div class="flex justify-between items-center">
-                        <span class="font-medium text-skyDeep bg-skyLight px-2 py-0.5 rounded-full border border-skySoft">${escapeHtml(data.name)}</span>
-                        <span class="text-[10px] text-textMuted font-light">${data.date}</span>
-                    </div>
-                    <p class="text-textDark font-light pt-1.5 leading-relaxed">${escapeHtml(data.message)}</p>
-                </div>
-            `;
-            list.insertAdjacentHTML('afterbegin', newMsgHTML);
-        });
+                    const newMsgHTML = `
+                        <div class="card-inner p-4 text-xs space-y-1">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-skyDeep bg-skyLight px-2 py-0.5 rounded-full border border-skySoft">${escapeHtml(data.name)}</span>
+                                <span class="text-[10px] text-textMuted font-light">${data.date}</span>
+                            </div>
+                            <p class="text-textDark font-light pt-1.5 leading-relaxed">${escapeHtml(data.message)}</p>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('afterbegin', newMsgHTML);
+                });
 
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
+                function escapeHtml(str) {
+                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+                }
     </script>
 </body>
 </html>
